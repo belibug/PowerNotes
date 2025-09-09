@@ -1,0 +1,22 @@
+{
+  "ProjectName": "PSJournal",
+  "Description": "Notes and thoughts in command line using PowerShell",
+  "Version": "0.0.1",
+  "copyResourcesToModuleRoot": false,
+  "Manifest": {
+    "Author": "belibug",
+    "PowerShellHostVersion": "7.4",
+    "GUID": "2f8bbc1f-6920-48bf-923b-e3a2eec22a7f",
+    "Tags": [],
+    "ProjectUri": ""
+  },
+  "Pester": {
+    "TestResult": {
+      "Enabled": true,
+      "OutputFormat": "NUnitXml"
+    },
+    "Output": {
+      "Verbosity": "Detailed"
+    }
+  }
+}
