@@ -4,11 +4,14 @@
   "Version": "0.0.1",
   "copyResourcesToModuleRoot": false,
   "Manifest": {
-    "Author": "belibug",
+    "Author": "Manjunath Beli",
     "PowerShellHostVersion": "7.4",
     "GUID": "2f8bbc1f-6920-48bf-923b-e3a2eec22a7f",
-    "Tags": [],
-    "ProjectUri": ""
+    "Tags": [
+      "journal",
+      "notes"
+    ],
+    "ProjectUri": "https://github.com/belibug/PSJournal"
   },
   "Pester": {
     "TestResult": {
