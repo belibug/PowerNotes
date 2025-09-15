@@ -6,12 +6,13 @@ function New-PSJNote {
         [string] $Topic = $null,
         [Priority] $Priority = [Priority]::Low
     )
-
     $jrnlParams = @{
         Body = $Body
     }
     if ($null -ne $Topic) { $jrnlParams['Topic'] = $Topic }
-    if ($null -ne $Priority) { $jrnlParams['Priority'] = $Priority }
-
-    return [Jrnl]::new($jrnlParams)
+    $jrnlParams['Priority'] = $Priority
+    $NoteJrnl = [Jrnl]::new($jrnlParams)
+    $jrnlParams
+    Out-PSJournalDataToFile -Note $NoteJrnl
+    return $NoteJrnl
 }
