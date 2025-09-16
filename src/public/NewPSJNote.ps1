@@ -4,7 +4,7 @@ function New-PSJNote {
         [Parameter(Mandatory = $true)]
         [string] $Body,
         [string] $Topic = $null,
-        [Priority] $Priority = [Priority]::Low
+        [priority]$Priority = [priority]::Low
     )
     $jrnlParams = @{
         Body = $Body
@@ -12,7 +12,6 @@ function New-PSJNote {
     if ($null -ne $Topic) { $jrnlParams['Topic'] = $Topic }
     $jrnlParams['Priority'] = $Priority
     $NoteJrnl = [Jrnl]::new($jrnlParams)
-    $jrnlParams
-    Out-PSJournalDataToFile -Note $NoteJrnl
+    Add-JrnlEntryToFile -Note $NoteJrnl
     return $NoteJrnl
 }

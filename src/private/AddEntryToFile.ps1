@@ -1,12 +1,12 @@
 function Add-JrnlEntryToFile {
     param(
-        [Jrnl] $Entry,
-        [string] $FilePath = (Get-PSJournalFile)
+        [Jrnl] $Note,
+        $Year = (Get-Date).Year
     )
-
+    $filePath = Get-PSJournalFile -Year $Year -Create
     $list = [System.Collections.ArrayList]::new()
 
-    if (Test-Path $FilePath) {
+    if (Test-Path $filePath) {
         $json = Get-Content -Path $FilePath -Raw
         if ($json) {
             $items = $json | ConvertFrom-Json
@@ -15,7 +15,7 @@ function Add-JrnlEntryToFile {
                 $jrnlEntry = [Jrnl]::new(@{
                         Body     = $item.Body
                         Topic    = $item.Topic
-                        Priority = [Priority]::$item.Priority
+                        Priority = [Priority]$($item.Priority)
                     })
                 $jrnlEntry.Time = [datetime]$item.Time
                 $jrnlEntry.ID = $item.ID
@@ -23,9 +23,8 @@ function Add-JrnlEntryToFile {
             }
         }
     }
+    [void]$list.Add($Note)
 
-    [void]$list.Add($Entry)
-
-    $jsonOut = $list | ConvertTo-Json -Depth 5
-    Set-Content -Path $FilePath -Value $jsonOut -Encoding UTF8
+    $jsonOut = $list | ConvertTo-Json -Depth 5 -EnumsAsStrings
+    Set-Content -Path $filePath -Value $jsonOut -Encoding UTF8
 }
