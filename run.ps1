@@ -1,6 +1,6 @@
 Import-Module .\dist\PSJournal -Force
 # . .\src\private\Jrnl_class.ps1
-$JRNLFILE = Get-PSJournalFile
+# $JRNLFILE = Get-PSJournalFile
 # Remove-Item $JRNLFILE -ErrorAction SilentlyContinue
 
 # $j1 = [Jrnl]::new('Funny Txt here', 'cool', 'Medium')
@@ -13,7 +13,7 @@ $JRNLFILE = Get-PSJournalFile
 # $j1 = New-PSJNote -Body 'This is low note'
 # $j1 = New-PSJNote -Body 'This is low note with mention' -Priority Low
 # $j2 = New-PSJNote -Body 'This is medium  note - p high 2' -Priority Medium
-$j3 = New-PSJNote -Body 'This is high note - p high 3' -Priority High
+# $j3 = New-PSJNote -Body 'This is high note - p high 3' -Priority High
 # $j1.Print()
 # $j2.Print()
 # $j3.Print()

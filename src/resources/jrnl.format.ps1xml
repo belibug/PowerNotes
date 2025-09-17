@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>jrnl.Table</Name>
+            <ViewSelectedBy>
+                <TypeName>jrnl</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Topic</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Body</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>Topic</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>
+                                    <!-- if ($_.Priority -eq 'High') {
+                                    "$($PSStyle.Foreground.Red)$([string]$_.Body)$($PSStyle.Reset)"
+                                    } else {
+                                    "$([string]$_.Body)"
+                                    } -->
+                                    $b = [string]$_.Body
+                                    $p = [string]$_.Priority
+                                   switch ($p) {
+      'High'   { "$($PSStyle.Foreground.Red)$b$($PSStyle.Reset)" }
+      'Medium' { "$($PSStyle.Foreground.Yellow)$b$($PSStyle.Reset)" }
+      default  { $b}
+    }
+                                </ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>
