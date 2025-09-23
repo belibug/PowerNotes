@@ -1,11 +1,11 @@
-Import-Module .\dist\PSJournal -Force
-# . .\src\private\Jrnl_class.ps1
-# $JRNLFILE = Get-PSJournalFile
-# Remove-Item $JRNLFILE -ErrorAction SilentlyContinue
+Import-Module .\dist\PowerNotes -Force
+# . .\src\private\Note_class.ps1
+# $NoteFILE = Get-PSJournalFile
+# Remove-Item $NoteFILE -ErrorAction SilentlyContinue
 
-# $j1 = [Jrnl]::new('Funny Txt here', 'cool', 'Medium')
-# $j2 = [Jrnl]::new('Funny Txt here')
-# $j3 = [Jrnl]::new('Funny Txt here', 'NotSoMuch', 'High')
+# $j1 = [Note]::new('Funny Txt here', 'cool', 'Medium')
+# $j2 = [Note]::new('Funny Txt here')
+# $j3 = [Note]::new('Funny Txt here', 'NotSoMuch', 'High')
 
 # $j1.Print()
 # $j2.Print()
@@ -17,6 +17,6 @@ Import-Module .\dist\PSJournal -Force
 # $j1.Print()
 # $j2.Print()
 # $j3.Print()
-Get-PSJNote -Count 2
+Get-Note -Count 2
 # Write-Host 'Conten inside file' -ForegroundColor Blue
-# cat $JRNLFILE
+# cat $NoteFILE

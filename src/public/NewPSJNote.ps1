@@ -1,4 +1,4 @@
-function New-PSJNote {
+function New-Note {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -6,12 +6,12 @@ function New-PSJNote {
         [string] $Topic = $null,
         [priority]$Priority = [priority]::Low
     )
-    $jrnlParams = @{
+    $NoteParams = @{
         Body = $Body
     }
-    if ($null -ne $Topic) { $jrnlParams['Topic'] = $Topic }
-    $jrnlParams['Priority'] = $Priority
-    $NoteJrnl = [Jrnl]::new($jrnlParams)
-    Add-JrnlEntryToFile -Note $NoteJrnl
-    return $NoteJrnl
+    if ($null -ne $Topic) { $NoteParams['Topic'] = $Topic }
+    $NoteParams['Priority'] = $Priority
+    $NoteEntry = [Note]::new($NoteParams)
+    Add-NoteEntryToFile -Note $NoteEntry
+    return $NoteEntry
 }

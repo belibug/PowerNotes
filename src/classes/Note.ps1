@@ -4,48 +4,48 @@ enum Priority {
     High
 }
 
-class Jrnl {
+class Note {
     [string]     $ID
     [string]     $Body
     [string]     $Topic
-    [datetime]   $Time
+    [datetime]   $Date
     [Priority]   $Priority
 
-    Jrnl([string] $Body, [string] $Topic, [Priority] $Priority) {
+    Note([string] $Body, [string] $Topic, [Priority] $Priority) {
         $this.ID = [guid]::NewGuid().ToString()
         $this.Body = $Body
         $this.Topic = $Topic
         $this.Priority = $Priority
-        $this.Time = (Get-Date)
+        $this.Date = (Get-Date)
     }
 
-    Jrnl([string] $Body, [string] $Topic) {
+    Note([string] $Body, [string] $Topic) {
         $this.ID = [guid]::NewGuid().ToString()
         $this.Body = $Body
         $this.Topic = $Topic
         $this.Priority = [Priority]::Low
-        $this.Time = (Get-Date)
+        $this.Date = (Get-Date)
     }
 
-    Jrnl([string] $Body) {
+    Note([string] $Body) {
         $this.ID = [guid]::NewGuid().ToString()
         $this.Body = $Body
         $this.Topic = 'DailyJournal'
         $this.Priority = [Priority]::Low
-        $this.Time = (Get-Date)
+        $this.Date = (Get-Date)
     }
 
-    Jrnl([hashtable] $jrnlParams) {
+    Note([hashtable] $NoteParams) {
         $this.ID = [guid]::NewGuid().ToString()
-        $this.Body = $jrnlParams.Body
-        $this.Topic = if ($jrnlParams.ContainsKey('Topic') -and $jrnlParams.Topic) { $jrnlParams.Topic } else { 'DailyJournal' }
-        $this.Priority = if ($jrnlParams.ContainsKey('Priority') -and $jrnlParams.Priority) { $jrnlParams.Priority } else { [Priority]::Low }
-        $this.Time = (Get-Date)
+        $this.Body = $NoteParams.Body
+        $this.Topic = if ($NoteParams.ContainsKey('Topic') -and $NoteParams.Topic) { $NoteParams.Topic } else { 'DailyJournal' }
+        $this.Priority = if ($NoteParams.ContainsKey('Priority') -and $NoteParams.Priority) { $NoteParams.Priority } else { [Priority]::Low }
+        $this.Date = (Get-Date)
     }
 
     [void] Print() {
         # Format: "MMM dd HH:mm:ss" e.g. "Sep 12 13:02:05"
-        $timestamp = $this.Time.ToString('MMM-dd HH:mm:ss')
+        $timestamp = $this.Date.ToString('MMM-dd HH:mm:ss')
         $color = $null
         switch ($this.Priority) {
             'Medium' { $color = 'Yellow' }

@@ -1,16 +1,13 @@
-function Get-PSJNote {
+function Find-Note {
     [CmdletBinding()]
     param(
+        [Parameter(Mandatory)]
+        [string]$Text,
         [int] $Year = (Get-Date).Year,
-        [int] $Count = 10,
-        [switch]$All,
-        #TODO Yet to Implement LAST
-        [ValidateSet('Week', 'Fortnight', 'Month', 'Quarter')]
-        [string]$Last,
-        $Topic
+        [int]$MaxCount
     )
 
-    $filePath = Get-PSJournalFile -Year $Year
+    $filePath = Get-NotesFile -Year $Year
 
     $ResultOut = [System.Collections.ArrayList]::new() 
 
@@ -28,24 +25,18 @@ function Get-PSJNote {
     $items = $raw | ConvertFrom-Json  
 
     foreach ($obj in $items) {
-        $entry = [Jrnl]::new(@{
+        $entry = [Note]::new(@{
                 Body     = $obj.Body
                 Topic    = $obj.Topic
                 Priority = [Priority]::$($obj.Priority)
             })
         $entry.ID = $obj.ID
-        $entry.Time = [datetime]$obj.Time
+        $entry.Date = [datetime]$obj.Date
         [void]$ResultOut.Add($entry) 
     }
+    $ResultOut = $ResultOut | Where-Object { $_.Body -like "*$Text*" }
     
-    if ($Last) { Write-Warning 'Feature not implemented : Last' }
+    if ($MaxCount) { $ResultOut = $ResultOut | Select-Object -Last $MaxCount }
 
-    if ($Topic) {
-        $ResultOut = $ResultOut | Where-Object { $_.Topic -like "*$topic*" }
-    }
-
-    if (-not $All) { 
-        $ResultOut = $ResultOut | Select-Object -Last $Count 
-    }
     return $ResultOut
 }

@@ -1,9 +1,9 @@
-function Get-PSJournalFile {
+function Get-NotesFile {
     param (
         [int] $Year = (Get-Date).Year,
         [switch]$Create
     )
-    $baseDir = Get-PSJournalDir
+    $baseDir = Get-NotesDir
     $fileName = "journal-$Year.json"
     $FullFilePath = Join-Path $baseDir $fileName
     if ($Create -and (-not (Test-Path $FullFilePath))) {

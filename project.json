@@ -1,7 +1,7 @@
 {
-  "ProjectName": "PSJournal",
-  "Description": "Notes and thoughts in command line using PowerShell",
-  "Version": "0.0.1",
+  "ProjectName": "PowerNotes",
+  "Description": "Powerfull Notes taking in command line using PowerShell",
+  "Version": "0.0.2",
   "copyResourcesToModuleRoot": false,
   "Manifest": {
     "Author": "Manjunath Beli",
@@ -11,7 +11,7 @@
       "journal",
       "notes"
     ],
-    "ProjectUri": "https://github.com/belibug/PSJournal"
+    "ProjectUri": "https://github.com/belibug/PowerNotes"
   },
   "Pester": {
     "TestResult": {

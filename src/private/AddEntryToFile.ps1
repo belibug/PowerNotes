@@ -1,25 +1,25 @@
-function Add-JrnlEntryToFile {
+function Add-NoteEntryToFile {
     param(
-        [Jrnl] $Note,
+        [Note] $Note,
         $Year = (Get-Date).Year
     )
-    $filePath = Get-PSJournalFile -Year $Year -Create
+    $filePath = Get-NotesFil -Year $Year -Create
     $list = [System.Collections.ArrayList]::new()
 
     if (Test-Path $filePath) {
         $json = Get-Content -Path $FilePath -Raw
         if ($json) {
             $items = $json | ConvertFrom-Json
-            # Convert deserialized objects into Jrnl objects if needed
+            # Convert deserialized objects into Note objects if needed
             foreach ($item in $items) {
-                $jrnlEntry = [Jrnl]::new(@{
+                $NoteEntry = [Note]::new(@{
                         Body     = $item.Body
                         Topic    = $item.Topic
                         Priority = [Priority]$($item.Priority)
                     })
-                $jrnlEntry.Time = [datetime]$item.Time
-                $jrnlEntry.ID = $item.ID
-                [void]$list.Add($jrnlEntry)
+                $NoteEntry.Date = [datetime]$item.Date
+                $NoteEntry.ID = $item.ID
+                [void]$list.Add($NoteEntry)
             }
         }
     }

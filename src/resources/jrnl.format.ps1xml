@@ -2,14 +2,14 @@
 <Configuration>
     <ViewDefinitions>
         <View>
-            <Name>jrnl.Table</Name>
+            <Name>Note.Table</Name>
             <ViewSelectedBy>
-                <TypeName>jrnl</TypeName>
+                <TypeName>Note</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>Time</Label>
+                        <Label>Date</Label>
                     </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>Topic</Label>
@@ -23,7 +23,7 @@
                         <TableColumnItems>
                             <TableColumnItem>
                                 <ScriptBlock>
-                                    $b = ($_.Time).ToString("dd MMM")
+                                    $b = ($_.Date).ToString("dd MMM")
                                     $b
                                 </ScriptBlock>
                             </TableColumnItem>
