@@ -3,7 +3,7 @@ function Add-NoteEntryToFile {
         [Note] $Note,
         $Year = (Get-Date).Year
     )
-    $filePath = Get-NotesFil -Year $Year -Create
+    $filePath = Get-NotesFile -Year $Year -Create
     $list = [System.Collections.ArrayList]::new()
 
     if (Test-Path $filePath) {

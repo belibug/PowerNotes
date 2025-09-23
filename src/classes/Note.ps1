@@ -30,7 +30,7 @@ class Note {
     Note([string] $Body) {
         $this.ID = [guid]::NewGuid().ToString()
         $this.Body = $Body
-        $this.Topic = 'DailyJournal'
+        $this.Topic = 'DailyNote'
         $this.Priority = [Priority]::Low
         $this.Date = (Get-Date)
     }
@@ -38,7 +38,7 @@ class Note {
     Note([hashtable] $NoteParams) {
         $this.ID = [guid]::NewGuid().ToString()
         $this.Body = $NoteParams.Body
-        $this.Topic = if ($NoteParams.ContainsKey('Topic') -and $NoteParams.Topic) { $NoteParams.Topic } else { 'DailyJournal' }
+        $this.Topic = if ($NoteParams.ContainsKey('Topic') -and $NoteParams.Topic) { $NoteParams.Topic } else { 'DailyNote' }
         $this.Priority = if ($NoteParams.ContainsKey('Priority') -and $NoteParams.Priority) { $NoteParams.Priority } else { [Priority]::Low }
         $this.Date = (Get-Date)
     }

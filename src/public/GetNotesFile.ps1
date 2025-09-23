@@ -4,7 +4,7 @@ function Get-NotesFile {
         [switch]$Create
     )
     $baseDir = Get-NotesDir
-    $fileName = "journal-$Year.json"
+    $fileName = "Notes-$Year.json"
     $FullFilePath = Join-Path $baseDir $fileName
     if ($Create -and (-not (Test-Path $FullFilePath))) {
         New-Item $FullFilePath | Out-Null
