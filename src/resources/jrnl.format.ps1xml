@@ -9,6 +9,9 @@
             <TableControl>
                 <TableHeaders>
                     <TableColumnHeader>
+                        <Label>Time</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
                         <Label>Topic</Label>
                     </TableColumnHeader>
                     <TableColumnHeader>
@@ -19,22 +22,31 @@
                     <TableRowEntry>
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>Topic</PropertyName>
+                                <ScriptBlock>
+                                    $b = ($_.Time).ToString("dd MMM")
+                                    $b
+                                </ScriptBlock>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <ScriptBlock>
-                                    <!-- if ($_.Priority -eq 'High') {
-                                    "$($PSStyle.Foreground.Red)$([string]$_.Body)$($PSStyle.Reset)"
-                                    } else {
-                                    "$([string]$_.Body)"
-                                    } -->
+                                    $p = [string]$_.Priority
+                                    $b = [string]$_.Topic
+                                   switch ($p) {
+                                    'High'   { "$($PSStyle.Foreground.Red)$b$($PSStyle.Reset)" }
+                                    'Medium' { "$($PSStyle.Foreground.Yellow)$b$($PSStyle.Reset)" }
+                                    default  { $b}
+                                    }
+                                </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>
                                     $b = [string]$_.Body
                                     $p = [string]$_.Priority
                                    switch ($p) {
-      'High'   { "$($PSStyle.Foreground.Red)$b$($PSStyle.Reset)" }
-      'Medium' { "$($PSStyle.Foreground.Yellow)$b$($PSStyle.Reset)" }
-      default  { $b}
-    }
+                                    'High'   { "$($PSStyle.Foreground.Red)$b$($PSStyle.Reset)" }
+                                    'Medium' { "$($PSStyle.Foreground.Yellow)$b$($PSStyle.Reset)" }
+                                    default  { $b}
+                                    }
                                 </ScriptBlock>
                             </TableColumnItem>
                         </TableColumnItems>

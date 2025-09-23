@@ -1,13 +1,10 @@
-function Get-PSJNote {
+function Find-PSJNote {
     [CmdletBinding()]
     param(
+        [Parameter(Mandatory)]
+        [string]$Text,
         [int] $Year = (Get-Date).Year,
-        [int] $Count = 10,
-        [switch]$All,
-        #TODO Yet to Implement LAST
-        [ValidateSet('Week', 'Fortnight', 'Month', 'Quarter')]
-        [string]$Last,
-        $Topic
+        [int]$MaxCount
     )
 
     $filePath = Get-PSJournalFile -Year $Year
@@ -37,15 +34,9 @@ function Get-PSJNote {
         $entry.Time = [datetime]$obj.Time
         [void]$ResultOut.Add($entry) 
     }
+    $ResultOut = $ResultOut | Where-Object { $_.Body -like "*$Text*" }
     
-    if ($Last) { Write-Warning 'Feature not implemented : Last' }
+    if ($MaxCount) { $ResultOut = $ResultOut | Select-Object -Last $MaxCount }
 
-    if ($Topic) {
-        $ResultOut = $ResultOut | Where-Object { $_.Topic -like "*$topic*" }
-    }
-
-    if (-not $All) { 
-        $ResultOut = $ResultOut | Select-Object -Last $Count 
-    }
     return $ResultOut
 }

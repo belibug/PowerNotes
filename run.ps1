@@ -17,6 +17,6 @@ Import-Module .\dist\PSJournal -Force
 # $j1.Print()
 # $j2.Print()
 # $j3.Print()
-Get-PSJNote
+Get-PSJNote -Count 2
 # Write-Host 'Conten inside file' -ForegroundColor Blue
 # cat $JRNLFILE
