@@ -8,7 +8,6 @@ function Find-Note {
     )
 
     $filePath = Get-NotesFile -Year $Year
-
     $ResultOut = [System.Collections.ArrayList]::new() 
 
     if (-not (Test-Path $filePath)) {
@@ -16,15 +15,13 @@ function Find-Note {
         # Quit, No file found
     }
 
-    $raw = Get-Content -Path $filePath -Raw
-    if ([string]::IsNullOrWhiteSpace($raw)) {
+    $rawData = Get-Content -Path $filePath
+    if ([string]::IsNullOrWhiteSpace($rawData)) {
         return $ResultOut
         # Quit, No entires in the JSON
     }
-
-    $items = $raw | ConvertFrom-Json  
-
-    foreach ($obj in $items) {
+    $rawData | ForEach-Object {
+        $obj = $_ | ConvertFrom-Json
         $entry = [Note]::new(@{
                 Body     = $obj.Body
                 Topic    = $obj.Topic
