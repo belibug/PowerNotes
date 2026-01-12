@@ -28,7 +28,7 @@ function Get-Note {
         $entry = [Note]::new(@{
                 Body     = $obj.Body
                 Topic    = $obj.Topic
-                Priority = [Priority]::$($obj.Priority)
+                Priority = [Priority]$($obj.Priority)
             })
         $entry.ID = $obj.ID
         $entry.Date = [datetime]$obj.Date
