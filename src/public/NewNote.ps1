@@ -1,4 +1,5 @@
 function New-Note {
+    [Alias('npn')]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]

@@ -1,4 +1,5 @@
 function Get-Note {
+    [Alias('gpn')]
     [CmdletBinding()]
     param(
         [int] $Year = (Get-Date).Year,

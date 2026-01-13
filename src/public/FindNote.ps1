@@ -1,4 +1,5 @@
 function Find-Note {
+    [Alias('fpn')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
