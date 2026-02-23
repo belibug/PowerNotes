@@ -1,6 +1,6 @@
 function New-Note {
     [Alias('npn')]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [Parameter(Mandatory = $true)]
         [string] $Body,
@@ -13,6 +13,7 @@ function New-Note {
     if ($null -ne $Topic) { $NoteParams['Topic'] = $Topic }
     $NoteParams['Priority'] = $Priority
     $NoteEntry = [Note]::new($NoteParams)
+    if (-not $PSCmdlet.ShouldProcess($NoteEntry, 'Will write the note')) { return }
     Add-NoteEntryToFile -Note $NoteEntry
     return $NoteEntry
 }
