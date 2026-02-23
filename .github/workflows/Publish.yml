@@ -27,15 +27,6 @@ jobs:
       - name: 🧪 Run Pester Tests
         run: Invoke-MTTest
 
-      - name: 📝 Generate Report
-        continue-on-error: true
-        run: |
-          # Get list of files in the dist directory directory
-          $Report = New-MDHeader -Text "Output Files 📁" -Level 2
-          $Report += Get-ChildItem -Path ./dist -Recurse | Select-Object Name, Directory | New-MDTable 
-          echo "$Report" >> $env:GITHUB_STEP_SUMMARY
-          echo "$Report"
-
       - name: 🚀 Publish Package to PSGallery
         run: |
           try {
