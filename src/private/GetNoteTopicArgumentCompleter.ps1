@@ -7,10 +7,9 @@ Register-ArgumentCompleter -CommandName Get-Note -ParameterName Topic -ScriptBlo
         $fakeBoundParameters )
 
     $commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters | Out-Null
-    $Year = if ($fakeBoundParameters.ContainsKey('Year')) { $fakeBoundParameters['Year'] } else { (Get-Date).Year }
-    $PathFile = Get-NotesFile -Year $Year
+    $PathFile = Get-NotesFile
     $rawData = Get-Content -Path $PathFile -ErrorAction SilentlyContinue
     $rawData | ForEach-Object { ($_ | ConvertFrom-Json).Topic } |
-        Where-Object { $_ -and $_ -like "$wordToComplete*" } |
-        Sort-Object -Unique
+    Where-Object { $_ -and $_ -like "$wordToComplete*" } |
+    Sort-Object -Unique
 }

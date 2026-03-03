@@ -1,7 +1,7 @@
 {
   "ProjectName": "PowerNotes",
   "Description": "Powerfull Notes taking in command line using PowerShell",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "copyResourcesToModuleRoot": false,
   "Manifest": {
     "Author": "Manjunath Beli",

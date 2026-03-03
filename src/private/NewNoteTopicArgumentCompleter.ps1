@@ -10,6 +10,6 @@ Register-ArgumentCompleter -CommandName New-Note -ParameterName Topic -ScriptBlo
     $PathFile = Get-NotesFile
     $rawData = Get-Content -Path $PathFile -ErrorAction SilentlyContinue
     $rawData | ForEach-Object { ($_ | ConvertFrom-Json).Topic } |
-        Where-Object { $_ -and $_ -like "$wordToComplete*" } |
-        Sort-Object -Unique
+    Where-Object { $_ -and $_ -like "$wordToComplete*" } |
+    Sort-Object -Unique
 }
