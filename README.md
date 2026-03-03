@@ -1,42 +1,121 @@
-## Power Notes
+# PowerNotes
 
-`PowerNotes` is simple journal & notes taking applicaiton for command line.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Collect your thoughts in terminal using PowerShell Module. Lightweight, plain text and opensource.
-Quick create entries, view, search and backup human-readable simple plain text format. 
+PowerNotes is a lightweight, cross-platform PowerShell module for journaling and note taking in the terminal. It stores every entry as plain text (JSONL) so your notes stay readable, portable, and easy to back up.
+
+## Features
+
+- Fast note capture from PowerShell
+- Plain text JSONL storage (one file per year)
+- Optional topics and priorities with colorized output
+- Simple search and filtering
+- No external dependencies
+
+## Requirements
+
+- PowerShell 7.4+ (module targets PowerShell 7.x)
+- File system access to a writable data folder
+
+## Installation
+
+PowerNotes is available on the PowerShell Gallery.
+
+```powershell
+Install-Module PowerNotes -Scope CurrentUser
+Import-Module PowerNotes
+```
 
 ## Quick Start
 
-- Use `New-Note` or alias `npn` to create note and quickly create entries. Optionally it accepts Topic, Priority
-- Use `Get-Note` or alias `gpn` to get saved notes
-- Use `Find-Note` or `fpn` to search notes based on body or/and topic
-- use `Get-NoteFile` to display file storage path for jsonl DB. This contains all the notes saved, should be used for backup/restore purposes.
+```powershell
+# Create a note (Body is required)
+New-Note -Body "Ship checklist draft"
 
-All data output are powershell custom objects. 
+# Create a note with topic and priority
+New-Note -Body "Update release notes" -Topic "Release" -Priority High
 
+# Get recent notes (default: last 10 from current year)
+Get-Note -Count 5
 
-## Setup
+# Get all notes from a year
+Get-Note -Year 2024 -All
 
-By default jsonl (json per line) database is saved in home directory in PowerNotes sub directory. Set `env` variable `PowerNotesDir` with valid folder to set custom location. Store database in shared folder to keep synchronized between devices. 
+# Filter by topic
+Get-Note -Topic "Release"
 
-## Design
+# Search within note bodies
+Find-Note -Text "release" -Year 2024 -MaxCount 20
 
-### Why PowerNotes
+# Get the storage file path for the current year
+Get-NotesFile
+```
 
-There are no shortages of journal and notes taking application. There are several terminal based notes taking app like [jrnl](https://jrnl.sh), [note](https://github.com/armandsauzay/note). But they need external application like python or gives you complicated TUI. I built this as simple alternative with zero dependency PowerShell Module. Runs on windows as standard user with built in PowerShell and Windows Terminal. 
+## Commands
 
-### Plain Text Database
+- `New-Note` (`npn`) — Creates a note.
+  - `-Body` (required)
+  - `-Topic` (optional)
+  - `-Priority` — Low | Medium | High
 
-All notes are saved in single `jsonl` segregated into years. Edit this file using text editor of your choice, but ensure each line has valid json object. JSONL files are compact text only content that can save thousands of entries for less than 1MiB, readable on any device easily. 
+- `Get-Note` (`gpn`) — Lists notes.
+  - `-Year`
+  - `-Count`
+  - `-All`
+  - `-Topic`
 
-### Priority
+- `Find-Note` (`fpn`) — Searches note bodies.
+  - `-Text`
+  - `-Year`
+  - `-MaxCount`
 
-PowerNotes has 3 priority Low (1 - default), Medium (2) and High (3). Use colors supported terminals like Windows Terminal, iTerm2, Kitty etc to get rich color output for entires based on priority of notes.
+- `Get-NotesFile` — Returns the JSONL file path for a given year.
 
-### Topic
+All commands return PowerShell objects. Notes include `ID`, `Body`, `Topic`, `Date`, and `Priority`.
 
-Topcics are optional heading, by default its set to `DailyNote`, provide topic to organize notes. Notes can be searched, filtered based on topics. 
+## Argument Completion
 
-## Note
+The module includes argument completers for tab-completion in interactive sessions:
 
-This is a personal project to keep notes in simple yet powerful way. Use at your own risk. Project is completely opensource, contribution are welcome. 
+| Command | Parameter | Completes |
+|---------|-----------|-----------|
+| `Get-Note` | `-Topic` | Topics from the selected year's notes file |
+| `Get-Note` | `-Year` | Years that have an existing notes file |
+| `New-Note` | `-Topic` | Topics from the current year's notes file |
+
+## Data Storage
+
+Notes are stored as JSONL files, one entry per line:
+
+```
+{"ID":"...","Body":"...","Topic":"DailyNote","Date":"2026-01-17T22:58:00","Priority":1}
+```
+
+Default storage locations: 📁
+
+- Windows: `%APPDATA%\PowerNotes`
+- macOS: `~/Library/Application Support/PowerNotes`
+- Linux: `$XDG_DATA_HOME/PowerNotes` or `~/.local/share/PowerNotes`
+
+To override the location, set the `PowerNotesDir` environment variable to an existing folder.
+
+Each year is stored in `Notes-YYYY.jsonl`. You can back up or move these files directly.
+
+## Development
+
+Source layout:
+
+- `src/classes` - core types (for example, `Note` and `Priority`)
+- `src/public` - exported commands
+- `src/private` - internal helpers
+- `src/resources` - formatting resources
+
+If you are modifying the module, ensure the module packaging step includes these folders.
+
+## Contributing
+
+Pull requests and issues are welcome. Please keep changes small, focused, and well-tested. If you add new commands, update documentation and examples.
+
+## License
+
+MIT. See `LICENSE`.
