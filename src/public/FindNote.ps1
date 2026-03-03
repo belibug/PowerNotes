@@ -30,9 +30,9 @@ function Find-Note {
             })
         $entry.ID = $obj.ID
         $entry.Date = [datetime]$obj.Date
-        [void]$ResultOut.Add($entry) 
+        [void]$ResultOut.Add($entry)
     }
-    $ResultOut = $ResultOut | Where-Object { $_.Body -like "*$Text*" }
+    $ResultOut = $ResultOut | Where-Object { $_.Body -like "*$Text*" -or $_.Topic -like "*$Text*" }
     
     if ($MaxCount) { $ResultOut = $ResultOut | Select-Object -Last $MaxCount }
 

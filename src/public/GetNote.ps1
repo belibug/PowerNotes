@@ -8,7 +8,7 @@ function Get-Note {
         #TODO Yet to Implement LAST
         [ValidateSet('Week', 'Fortnight', 'Month', 'Quarter')]
         [string]$Last,
-        $Topic
+        [string]$Topic
     )
 
     $filePath = Get-NotesFile -Year $Year
