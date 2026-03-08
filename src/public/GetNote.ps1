@@ -8,7 +8,8 @@ function Get-Note {
         #TODO Yet to Implement LAST
         [ValidateSet('Week', 'Fortnight', 'Month', 'Quarter')]
         [string]$Last,
-        [string]$Topic
+        [string]$Topic,
+        [switch]$OutGridView
     )
 
     $filePath = Get-NotesFile -Year $Year
@@ -45,5 +46,9 @@ function Get-Note {
     if (-not $All) { 
         $ResultOut = $ResultOut | Select-Object -Last $Count 
     }
-    return $ResultOut
+    if ($OutGridView) {
+        $ResultOut | Out-GridView -Title 'PowerNotes'
+    } else {
+        return $ResultOut
+    }
 }
