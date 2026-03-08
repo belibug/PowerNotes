@@ -9,6 +9,7 @@ function Get-Note {
         [ValidateSet('Week', 'Fortnight', 'Month', 'Quarter')]
         [string]$Last,
         [string]$Topic,
+        # use Grid View as simple GUI to show notes
         [switch]$OutGridView
     )
 
