@@ -10,7 +10,9 @@ function Get-Note {
         [string]$Last,
         [string]$Topic,
         # use Grid View as simple GUI to show note view
-        [switch]$OutGridView
+        [switch]$OutGridView,
+        [ValidateSet('Low', 'Medium', 'High')]
+        [string]$Priority
     )
 
     $filePath = Get-NotesFile -Year $Year
@@ -42,6 +44,10 @@ function Get-Note {
 
     if ($Topic) {
         $ResultOut = $ResultOut | Where-Object { $_.Topic -like "*$topic*" }
+    }
+
+    if ($Priority) {
+        $ResultOut = $ResultOut | Where-Object { $_.Priority -eq $Priority }
     }
 
     if (-not $All) { 

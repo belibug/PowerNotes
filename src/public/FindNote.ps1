@@ -5,7 +5,9 @@ function Find-Note {
         [Parameter(Mandatory)]
         [string]$Text,
         [int] $Year = (Get-Date).Year,
-        [int]$MaxCount
+        [int]$MaxCount,
+        [ValidateSet('Low', 'Medium', 'High')]
+        [string]$Priority
     )
 
     $filePath = Get-NotesFile -Year $Year
@@ -34,6 +36,10 @@ function Find-Note {
     }
     $ResultOut = $ResultOut | Where-Object { $_.Body -like "*$Text*" -or $_.Topic -like "*$Text*" }
     
+    if ($Priority) {
+        $ResultOut = $ResultOut | Where-Object { $_.Priority -eq $Priority }
+    }
+
     if ($MaxCount) { $ResultOut = $ResultOut | Select-Object -Last $MaxCount }
 
     return $ResultOut

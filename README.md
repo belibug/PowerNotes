@@ -63,11 +63,13 @@ Get-NotesFile
   - `-Count`
   - `-All`
   - `-Topic`
+  - `-Priority`
 
 - `Find-Note` (`fpn`) — Searches note bodies.
   - `-Text`
   - `-Year`
   - `-MaxCount`
+  - `-Priority`
 
 - `Get-NotesFile` — Returns the JSONL file path for a given year.
 
@@ -77,11 +79,11 @@ All commands return PowerShell objects. Notes include `ID`, `Body`, `Topic`, `Da
 
 The module includes argument completers for tab-completion in interactive sessions:
 
-| Command | Parameter | Completes |
-|---------|-----------|-----------|
-| `Get-Note` | `-Topic` | Topics from the selected year's notes file |
-| `Get-Note` | `-Year` | Years that have an existing notes file |
-| `New-Note` | `-Topic` | Topics from the current year's notes file |
+| Command    | Parameter | Completes                                  |
+| ---------- | --------- | ------------------------------------------ |
+| `Get-Note` | `-Topic`  | Topics from the selected year's notes file |
+| `Get-Note` | `-Year`   | Years that have an existing notes file     |
+| `New-Note` | `-Topic`  | Topics from the current year's notes file  |
 
 ## Data Storage
 
